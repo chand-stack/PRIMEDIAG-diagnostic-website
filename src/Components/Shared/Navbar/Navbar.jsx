@@ -1,6 +1,6 @@
 import Headroom from 'react-headroom';
 import logo from '../../../assets/PdLogo.png'
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 const Navbar = () => {
 
     const links = <>
@@ -53,7 +53,7 @@ const Navbar = () => {
     </ul>
   </div>
   <div className="navbar-end">
-    <a className="btn">Button</a>
+    <Link className='btn' to="/login">Login</Link>
   </div>
 </div>
         </div>
