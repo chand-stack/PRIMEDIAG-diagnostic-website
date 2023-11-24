@@ -2,13 +2,32 @@ import { useForm } from 'react-hook-form';
 import img from '../../../assets/19836.jpg'
 import logo from '../../../assets/PdLogo.png'
 import { FcGoogle } from "react-icons/fc";
-import { Link } from 'react-router-dom';
-import { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../../Provider/AuthProvider';
 import Swal from 'sweetalert2';
+import usePublicAxios from '../../../useAxios/usePublicAxios';
 
+const apiKey = import.meta.env.VITE_IMGBB_API_KEY
+const hostingApi = `https://api.imgbb.com/1/upload?key=${apiKey}`
 const Register = () => {
+    const publicAxios = usePublicAxios()
     const {createUser,updateUser} = useContext(AuthContext)
+    const [upazila,setUpazila] = useState([])
+    const [district,setDistrict] = useState([])
+
+    const navigate = useNavigate()
+
+    useEffect(()=>{
+        fetch('upazila.json')
+        .then(res => res.json())
+        .then(data => setUpazila(data))
+    },[])
+    useEffect(()=>{
+        fetch('district.json')
+        .then(res => res.json())
+        .then(data => setDistrict(data))
+    },[])
 
     const {
         register,
@@ -20,6 +39,10 @@ const Register = () => {
         const photo = data.photo
         const email = data.email
         const password = data.password
+        const image = {image : data.photo[0]}
+        const blood = data.blood
+        const upazila = data.upazila
+        const district = data.district
         if(password.length<6){
             Swal.fire({
                 title: "Please choose a stronger password.!",
@@ -52,16 +75,22 @@ const Register = () => {
               });
               return
         }
-
-        createUser(email,password)
-        .then((res)=>{
-            console.log(res.user);
+         const res = await publicAxios.post(hostingApi,image,{
+            headers:{
+                "content-type": "multipart/form-data"
+            }
+         })
+         if(res.data.success){
+             createUser(email,password)
+        .then((response)=>{
+            console.log(response.user);
             Swal.fire({
                 title: "Welcome to PRIME DIAG!",
                 text: "Your account has been created successfully",
                 icon: "success"
               });
-            updateUser(name,photo).then(res => {console.log(res)}).catch(err => {console.log(err)})
+            updateUser(name,res.data.data.display_url).then(respo => {console.log(respo)}).catch(err => {console.log(err)})
+            navigate("/")
         })
         .catch(err=>{
             console.log(err);
@@ -71,8 +100,19 @@ const Register = () => {
                 icon: "error"
               });
         })
+        const userInfo = {
+            name: name,
+            image: res.data.data.display_url,
+            email: email,
+            bloodGroupe: blood,
+            upazila: upazila,
+            district: district,
+            status:"active"
+        }
+        console.log(userInfo);
+         }
         
-        console.log(name,photo,email,password)}
+        console.log(name,photo,email,password,image,upazila,district,blood)}
 
     return (
         <div className='bg-gray-50 w-full h-screen'>
@@ -96,10 +136,45 @@ const Register = () => {
 </div>
     <div className="form-control w-full">
   <label className="label">
-    <span className="label-text">Photo url</span>
+    <span className="label-text">Your avatar/photo</span>
   </label>
-  <input required type="url" {...register("photo")} placeholder="email" className="input input-bordered w-full" />
-  
+  <input type="file" {...register("photo")} className="file-input file-input-bordered w-full " />
+</div>
+    <div className="form-control w-full">
+  <label className="label">
+    <span className="label-text">Your blood groupe</span>
+  </label>
+  <select {...register("blood")} className='select select-bordered w-full '>
+        <option value="A+">A+</option>
+        <option value="A-">A-</option>
+        <option value="B+">B+</option>
+        <option value="B-">B-</option>
+        <option value="AB+">AB+</option>
+        <option value="AB-">AB-</option>
+        <option value="O+">O+</option>
+        <option value="O-">O-</option>
+      </select>
+</div>
+    <div className="form-control w-full">
+  <label className="label">
+    <span className="label-text">District</span>
+  </label>
+  <select {...register("district")} className='select select-bordered w-full '>
+        {
+            district?.map(dis => <option key={dis?.id} value={dis?.name}>{dis?.name}</option>)
+        }
+      </select>
+</div>
+    <div className="form-control w-full">
+  <label className="label">
+    <span className="label-text">Upazila</span>
+  </label>
+  <select {...register("upazila")} className='select select-bordered w-full '>
+        {
+            upazila?.map(upaz => <option key={upaz?.id} value={upaz?.name}>{upaz?.name}</option>)
+        }
+        
+      </select>
 </div>
     <div className="form-control w-full">
   <label className="label">
