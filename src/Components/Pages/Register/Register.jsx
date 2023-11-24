@@ -3,17 +3,66 @@ import img from '../../../assets/19836.jpg'
 import logo from '../../../assets/PdLogo.png'
 import { FcGoogle } from "react-icons/fc";
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../../../Provider/AuthProvider';
+import Swal from 'sweetalert2';
 
 const Register = () => {
+    const {createUser,updateUser} = useContext(AuthContext)
 
     const {
         register,
         handleSubmit,
       } = useForm()
     
-      const onSubmit = (data) => {
+      const onSubmit = async (data) => {
+        const name = data.name
+        const photo = data.photo
+        const email = data.email
+        const password = data.password
+        if(password.length<6){
+            Swal.fire({
+                title: "Please choose a stronger password.!",
+                text: "Password must be at least 6 characters long",
+                icon: "error"
+              });
+              return
+        }
+        if(!/^(?=.*[a-z])/.test(password)){
+            Swal.fire({
+                title: "Please choose a stronger password.!",
+                text: "Password must contain at least one lowercase letter",
+                icon: "error"
+              });
+              return
+        }
+        if(!/(?=.*[A-Z])/.test(password)){
+            Swal.fire({
+                title: "Please choose a stronger password.!",
+                text: "Password must contain at least one uppercase letter",
+                icon: "error"
+              });
+              return
+        }
+        if(!/(?=.*[!@#$%^&*])/.test(password)){
+            Swal.fire({
+                title: "Please choose a stronger password.!",
+                text: "Password must contain at least one special character",
+                icon: "error"
+              });
+              return
+        }
+
+        createUser(email,password)
+        .then((res)=>{
+            console.log(res.user);
+            updateUser(name,photo).then(res => {console.log(res)}).catch(err => {console.log(err)})
+        })
+        .catch(err=>{
+            console.log(err);
+        })
         
-        console.log(data.email)}
+        console.log(name,photo,email,password)}
 
     return (
         <div className='bg-gray-50 w-full h-screen'>

@@ -1,7 +1,13 @@
 import Headroom from 'react-headroom';
 import logo from '../../../assets/PdLogo.png'
 import { Link, NavLink } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../../../Provider/AuthProvider';
 const Navbar = () => {
+    const {logOut,user} = useContext(AuthContext)
+    const logoutHandler = () => {
+        logOut().then(()=>{console.log("logout successfully");}).catch(err => {console.log(err)})
+    }
 
     const links = <>
     <li><NavLink
@@ -53,7 +59,8 @@ const Navbar = () => {
     </ul>
   </div>
   <div className="navbar-end">
-    <Link className='btn' to="/login">Login</Link>
+    {user? <button onClick={logoutHandler} className='btn'>Logout</button> :
+    <Link className='btn' to="/login">Login</Link>}
   </div>
 </div>
         </div>
