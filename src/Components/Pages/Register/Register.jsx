@@ -56,10 +56,20 @@ const Register = () => {
         createUser(email,password)
         .then((res)=>{
             console.log(res.user);
+            Swal.fire({
+                title: "Welcome to PRIME DIAG!",
+                text: "Your account has been created successfully",
+                icon: "success"
+              });
             updateUser(name,photo).then(res => {console.log(res)}).catch(err => {console.log(err)})
         })
         .catch(err=>{
             console.log(err);
+            Swal.fire({
+                title: "Email-already-in-use. Please try again!",
+                text: "email-already-in-use",
+                icon: "error"
+              });
         })
         
         console.log(name,photo,email,password)}

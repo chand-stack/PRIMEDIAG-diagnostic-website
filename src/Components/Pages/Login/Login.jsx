@@ -2,17 +2,39 @@ import { useForm } from 'react-hook-form';
 import img from '../../../assets/19836.jpg'
 import logo from '../../../assets/PdLogo.png'
 import { FcGoogle } from "react-icons/fc";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../../../Provider/AuthProvider';
+import Swal from 'sweetalert2';
 const Login = () => {
+const {loginUser} = useContext(AuthContext)
+
+const navigate = useNavigate()
 
     const {
         register,
         handleSubmit,
       } = useForm()
     
-      const onSubmit = (data) => {
-        
-        console.log(data.email)}
+      const onSubmit = async (data) => {
+        const email = data.email
+        const password = data.password
+        console.log(email,password)
+    loginUser(email,password).then((res)=>{console.log(res);
+        Swal.fire({
+            title: "Welcome back!",
+            text: " It's great to see you again at PRIME DIAG.",
+            icon: "success"
+          });
+    navigate("/")
+    }).catch(err => {console.log(err);
+        Swal.fire({
+            title: "Invalid login credentials. Please try again!",
+            text: "invalid-login-credentials",
+            icon: "error"
+          });
+    })
+    }
 
     return (
        <div className='bg-gray-50 w-full h-screen'>
