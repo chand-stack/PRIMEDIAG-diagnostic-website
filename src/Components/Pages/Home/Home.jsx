@@ -1,7 +1,11 @@
+import { Helmet } from "react-helmet-async";
 
 const Home = () => {
     return (
         <div>
+            <Helmet>
+        <title>PrimeDiag</title>
+      </Helmet>
             <h1>this is home</h1>
         </div>
     );
