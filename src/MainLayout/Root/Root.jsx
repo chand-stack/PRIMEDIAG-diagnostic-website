@@ -4,10 +4,10 @@ import Navbar from "../../Components/Shared/Navbar/Navbar";
 const Root = () => {
   const  location = useLocation()
     console.log(location);
-    const isLogin = location.pathname.includes("login")
+    const isLogin = location.pathname.includes("login") || location.pathname.includes("register")
     return (
         <div>
-           {!isLogin && <Navbar></Navbar>}
+           {isLogin || <Navbar></Navbar>}
             <Outlet></Outlet>
         </div>
     );
