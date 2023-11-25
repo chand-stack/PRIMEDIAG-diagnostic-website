@@ -10,7 +10,7 @@ const Dashboard = () => {
 
     const isAdmin = true
     return (
-        <div className="flex font-poppin">
+        <div className="flex font-poppin container mx-auto">
             <div className="lg:w-1/4 min-h-screen bg-slate-50">
             <div className='hidden lg:flex items-center gap-2 justify-center py-5'>
         <h1 className='font-extrabold text-xl'>PrimeDiag</h1>
@@ -63,8 +63,8 @@ const Dashboard = () => {
             </>}
              </ul>
              </div>
-             <div className="lg:hidden fixed">
-                
+             <div className="lg:hidden fixed z-50">
+
                 {/* drawer for mobile */}
              <div className="drawer lg:drawer-open">
   <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -76,7 +76,7 @@ const Dashboard = () => {
   <div className="drawer-side ">
     <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
      
-    <ul className="menu-vertical p-4 w-80 space-y-4 min-h-full bg-base-200 ">
+    <ul className="menu-vertical p-4 w-80 space-y-4 min-h-full bg-base-200">
     <div className='flex items-center gap-2 justify-center py-5'>
         <h1 className='font-semibold md:font-extrabold text-xl'>PrimeDiag</h1>
         <img className='w-12' src={logo} alt="" />
