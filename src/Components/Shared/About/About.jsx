@@ -15,7 +15,7 @@ const About = () => {
         AOS.refresh();
       }, []);
     return (
-        <div className='font-poppin container mx-auto grid grid-cols-1 md:grid-cols-2 my-20'>
+        <div className='font-poppin container mx-auto grid grid-cols-1 md:grid-cols-2 my-20 md:gap-5'>
             <div className='relative'>
                 <img data-aos="fade-right" className='mx-auto rounded-xl p-5 md:p-0' src={img} alt="" />
                 <div data-aos="flip-right" className="card absolute right-5 bottom-0 w-52 bg-base-100 shadow-xl">
@@ -27,7 +27,7 @@ const About = () => {
   </div>
 </div>
             </div>
-            <div className='flex flex-col'>
+            <div className='flex flex-col lg:pr-20'>
                 <p className='text-blue-600 text-lg md:text-2xl font-medium flex-grow flex items-center gap-3'><MdRoundaboutRight/>ABOUT US</p>
                 <h1 className='text-2xl md:text-5xl font-semibold text-black flex-grow'>Provid leading <br /> healthcare</h1>
                 <p className='leading-8 flex-grow'>From diagnostics to treatment and beyond, we prioritize innovation, integrity, and the overall health journey of those we serve. Our vision is to be at the forefront of healthcare excellence, consistently exceeding expectations and making a positive impact on the lives we touch.</p>
