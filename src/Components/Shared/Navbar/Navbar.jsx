@@ -66,7 +66,7 @@ const Navbar = () => {
   <ul tabIndex={0} className="dropdown-content space-y-3 z-[1] menu p-2 text-center shadow bg-base-100 rounded-box min-w-[212px]">
     <li className='font-semibold'>Name: {user?.displayName}</li>
     <li><button onClick={logoutHandler} className='btn pt-4'>Logout</button></li>
-    <li><Link  className='pl-7 btn btn-sm mt-2'>User Dashboard</Link></li>
+    <li><Link to="/dashboard/profile" className='pl-7 btn btn-sm mt-2'>User Dashboard</Link></li>
   </ul>
 </div> :
     <Link className='btn' to="/login">Login</Link>}
