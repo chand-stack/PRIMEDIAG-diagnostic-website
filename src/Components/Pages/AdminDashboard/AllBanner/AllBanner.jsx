@@ -1,11 +1,11 @@
 import DashboardTitle from "../../../Shared/DashboardTitle/DashboardTitle";
 
-const UserProfile = () => {
+const AllBanner = () => {
     return (
         <div>
-            <DashboardTitle title={"My Profile"}></DashboardTitle>
+            <DashboardTitle title={"All Banner"}></DashboardTitle>
         </div>
     );
 };
 
-export default UserProfile;
+export default AllBanner;
