@@ -14,6 +14,7 @@ import Reservation from "../Components/Pages/AdminDashboard/Reservation/Reservat
 import AddBanner from "../Components/Pages/AdminDashboard/AddBanner/AddBanner";
 import AllBanner from "../Components/Pages/AdminDashboard/AllBanner/AllBanner";
 import AllTestPage from "../Components/Pages/AllTestPage/AllTestPage";
+import Detail from "../Components/Pages/DetailPage/Detail";
 
 const routes = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const routes = createBrowserRouter([
       {
         path: "/alltestpage",
         element: <AllTestPage></AllTestPage>,
+      },
+      {
+        path: "/test/detail/:id",
+        element: <Detail></Detail>,
       },
     ],
   },
