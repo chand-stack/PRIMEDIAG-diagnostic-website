@@ -13,69 +13,73 @@ import AllUser from "../Components/Pages/AdminDashboard/AllUser/AllUser";
 import Reservation from "../Components/Pages/AdminDashboard/Reservation/Reservation";
 import AddBanner from "../Components/Pages/AdminDashboard/AddBanner/AddBanner";
 import AllBanner from "../Components/Pages/AdminDashboard/AllBanner/AllBanner";
+import AllTestPage from "../Components/Pages/AllTestPage/AllTestPage";
 
 const routes = createBrowserRouter([
-    {
-        path:"/",
-        element:<Root></Root>,
-        children:[
-            {
-                path:"/",
-                element:<Home></Home>
-            },
-            {
-                path:"/login",
-                element:<Login></Login>
-            },
-            {
-                path:"/register",
-                element:<Register></Register>
-            },
-            
-        ]
-    },
-    {
-        path:"dashboard",
-        element:<Dashboard></Dashboard>,
-        children:([
-            {
-                path:"profile",
-                element:<UserProfile></UserProfile>
-            },
-            {
-                path:"appointments",
-                element:<Appointment></Appointment>
-            },
-            {
-                path:"testresults",
-                element:<TestResult></TestResult>
-            },
-            {
-                path:"allusers",
-                element:<AllUser></AllUser>
-            },
-            {
-                path:"addtest",
-                element:<AddTest></AddTest>
-            },
-            {
-                path:"alltest",
-                element:<AllTest></AllTest>
-            },
-            {
-                path:"reservation",
-                element:<Reservation></Reservation>
-            },
-            {
-                path:"addbanner",
-                element:<AddBanner></AddBanner>
-            },
-            {
-                path:"allbanner",
-                element:<AllBanner></AllBanner>
-            }
-        ])
-    }
-])
+  {
+    path: "/",
+    element: <Root></Root>,
+    children: [
+      {
+        path: "/",
+        element: <Home></Home>,
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/register",
+        element: <Register></Register>,
+      },
+      {
+        path: "/alltestpage",
+        element: <AllTestPage></AllTestPage>,
+      },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: <Dashboard></Dashboard>,
+    children: [
+      {
+        path: "profile",
+        element: <UserProfile></UserProfile>,
+      },
+      {
+        path: "appointments",
+        element: <Appointment></Appointment>,
+      },
+      {
+        path: "testresults",
+        element: <TestResult></TestResult>,
+      },
+      {
+        path: "allusers",
+        element: <AllUser></AllUser>,
+      },
+      {
+        path: "addtest",
+        element: <AddTest></AddTest>,
+      },
+      {
+        path: "alltest",
+        element: <AllTest></AllTest>,
+      },
+      {
+        path: "reservation",
+        element: <Reservation></Reservation>,
+      },
+      {
+        path: "addbanner",
+        element: <AddBanner></AddBanner>,
+      },
+      {
+        path: "allbanner",
+        element: <AllBanner></AllBanner>,
+      },
+    ],
+  },
+]);
 
 export default routes;
