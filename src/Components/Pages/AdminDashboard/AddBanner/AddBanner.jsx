@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import DashboardTitle from "../../../Shared/DashboardTitle/DashboardTitle";
 import usePublicAxios from "../../../../useAxios/usePublicAxios";
+import Swal from "sweetalert2";
 
 const apiKey = import.meta.env.VITE_IMGBB_API_KEY;
 const hostingApi = `https://api.imgbb.com/1/upload?key=${apiKey}`;
@@ -14,28 +15,33 @@ const AddBanner = () => {
     const title = data.title;
     const couponcode = data.couponcode;
     const couponrate = parseInt(data.couponrate);
-    console.log(name, image, details, title, couponcode, couponrate);
-    // const testDetail = {
-    //   name: name,
-    //   image: image,
-    //   details: details,
-    //   slot: slot,
-    //   price: price,
-    // };
+    const isActive = false;
+    // console.log(name, image, details, title, couponcode, couponrate);
+
     const res = await publicAxios.post(hostingApi, image, {
       headers: {
         "content-type": "multipart/form-data",
       },
     });
-    // const res = await axios.post("/service", testDetail);
-    // if (res.data.status == "success") {
-    //   Swal.fire({
-    //     title: "Success!",
-    //     text: "The product has been added successfully.",
-    //     icon: "success",
-    //   });
-    // }
-    console.log(res.data.data.display_url);
+    if (res.data.success) {
+      const bannerDeatils = {
+        name: name,
+        image: res.data.data.display_url,
+        description: details,
+        title: title,
+        couponcode: couponcode,
+        couponrate: couponrate,
+        isActive: isActive,
+      };
+      const ress = await publicAxios.post("/banner", bannerDeatils);
+      if (ress.data.status == "success") {
+        Swal.fire({
+          title: "Success!",
+          text: "The product has been added successfully.",
+          icon: "success",
+        });
+      }
+    }
   };
   return (
     <div>
