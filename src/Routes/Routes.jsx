@@ -15,6 +15,7 @@ import AddBanner from "../Components/Pages/AdminDashboard/AddBanner/AddBanner";
 import AllBanner from "../Components/Pages/AdminDashboard/AllBanner/AllBanner";
 import AllTestPage from "../Components/Pages/AllTestPage/AllTestPage";
 import Detail from "../Components/Pages/DetailPage/Detail";
+import UpdateTest from "../Components/Pages/AdminDashboard/UpdateTest/UpdateTest";
 
 const routes = createBrowserRouter([
   {
@@ -82,6 +83,10 @@ const routes = createBrowserRouter([
       {
         path: "allbanner",
         element: <AllBanner></AllBanner>,
+      },
+      {
+        path: "update/:id",
+        element: <UpdateTest></UpdateTest>,
       },
     ],
   },

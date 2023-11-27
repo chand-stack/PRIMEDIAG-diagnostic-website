@@ -87,7 +87,10 @@ const AllTest = () => {
                     </button>
                   </td>
                   <th>
-                    <Link className="btn btn-sm text-white bg-blue-600">
+                    <Link
+                      to={`/dashboard/update/${item?._id}`}
+                      className="btn btn-sm text-white bg-blue-600"
+                    >
                       Update
                     </Link>
                   </th>
