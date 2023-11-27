@@ -2,10 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import usePublicAxios from "../../../../useAxios/usePublicAxios";
 import DashboardTitle from "../../../Shared/DashboardTitle/DashboardTitle";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const AllTest = () => {
   const axios = usePublicAxios();
-  const { data: tests } = useQuery({
+  const { data: tests, refetch } = useQuery({
     queryKey: ["tests"],
     queryFn: async () => {
       const res = await axios.get("/service");
@@ -13,6 +14,31 @@ const AllTest = () => {
     },
   });
   console.log(tests);
+  const deleteHandler = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log(id);
+        axios.delete(`/service/${id}`).then((res) => {
+          if (res.data.status == "success") {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          }
+        });
+      }
+    });
+  };
   return (
     <div>
       <DashboardTitle title={"All Tests"}></DashboardTitle>
@@ -52,7 +78,10 @@ const AllTest = () => {
                   </td>
                   <td>{item?.name}</td>
                   <td>
-                    <button className="btn btn-sm text-white bg-red-600">
+                    <button
+                      onClick={() => deleteHandler(item._id)}
+                      className="btn btn-sm text-white bg-red-600"
+                    >
                       {" "}
                       Delete
                     </button>
