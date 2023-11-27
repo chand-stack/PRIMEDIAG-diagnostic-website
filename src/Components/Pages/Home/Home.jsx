@@ -3,6 +3,7 @@ import Banner from "../../Shared/Banner/Banner";
 import About from "../../Shared/About/About";
 import Recommendation from "../../Shared/Recommend/Recommendation";
 import NewsLetter from "../../Shared/NewsLetter/NewsLetter";
+import Brands from "../../Shared/Brands/Brands";
 
 const Home = () => {
   return (
@@ -12,6 +13,7 @@ const Home = () => {
       </Helmet>
       <Banner></Banner>
       <About></About>
+      <Brands></Brands>
       <Recommendation></Recommendation>
       <NewsLetter></NewsLetter>
     </div>

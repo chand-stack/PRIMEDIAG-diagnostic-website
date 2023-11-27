@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { CiPhone } from "react-icons/ci";
 import GoogleMapReact from "google-map-react";
 import NewsLetter from "../../Shared/NewsLetter/NewsLetter";
+import Brands from "../../Shared/Brands/Brands";
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 const Contact = () => {
   const defaultProps = {
@@ -32,7 +33,7 @@ const Contact = () => {
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 container mx-auto my-20">
-        <div className="card  bg-sky-100">
+        <div className="card  bg-sky-100 hover:text-orange-400 hover:duration-500">
           <div className="card-body text-center">
             <h2 className="">
               <CiLocationOn className="bg-[#34cceb] text-white mx-auto text-7xl rounded-full" />
@@ -41,7 +42,7 @@ const Contact = () => {
             <p>House #5, Street Number #98, brasilia- 70000-000, Brazil.</p>
           </div>
         </div>
-        <div className="card bg-sky-100 ">
+        <div className="card bg-sky-100 hover:text-orange-400 hover:duration-500">
           <div className="card-body text-center">
             <h2 className="">
               <MdOutlineMail className="bg-[#34cceb] text-white mx-auto text-7xl rounded-full" />
@@ -55,7 +56,7 @@ const Contact = () => {
             </p>
           </div>
         </div>
-        <div className="card bg-sky-100 ">
+        <div className="card bg-sky-100 hover:text-orange-400 hover:duration-500">
           <div className="card-body text-center">
             <h2 className="">
               <CiPhone className="bg-[#34cceb] text-white mx-auto text-7xl rounded-full" />
@@ -66,8 +67,8 @@ const Contact = () => {
           </div>
         </div>
       </div>
-      <div className="container mx-auto my-20">
-        <div style={{ height: "100vh", width: "50%" }}>
+      <div className="container mx-auto my-20 lg:flex justify-evenly items-center bg-[#34cceb]">
+        <div className="h-screen lg:w-1/2 rounded-xl p-2">
           <GoogleMapReact
             bootstrapURLKeys={{ key: "" }}
             defaultCenter={defaultProps.center}
@@ -80,7 +81,76 @@ const Contact = () => {
             />
           </GoogleMapReact>
         </div>
+        <form className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5 pb-4">
+          <div className="form-control w-full">
+            <input
+              required
+              type="text"
+              placeholder="Full Name*"
+              className="input input-bordered w-full"
+            />
+          </div>
+          <div className="form-control w-full">
+            <input
+              required
+              type="email"
+              placeholder="Email Address*"
+              className="input input-bordered w-full"
+            />
+          </div>
+
+          <div className="form-control w-full">
+            <input
+              required
+              type="text"
+              placeholder="Phone Number*"
+              className="input input-bordered w-full"
+            />
+          </div>
+          <div className="form-control w-full">
+            <input
+              required
+              type="date"
+              className="input input-bordered w-full"
+            />
+          </div>
+
+          <div className="form-control w-full">
+            <select
+              defaultValue={"Choose Doctor"}
+              className="select select-bordered w-full "
+            >
+              <option>Dr. Victoria Reynolds</option>
+              <option>Dr. Jamal Khan</option>
+              <option>Dr. Emily Chang</option>
+              <option>Dr. Marcus Rodriguez</option>
+              <option>Dr. Olivia Bennett</option>
+            </select>
+          </div>
+          <div defaultValue={"Choose Clinic"} className="form-control w-full">
+            <select className="select select-bordered w-full ">
+              <option>Tranquil Wellness Hub</option>
+              <option>Apex Care Clinic</option>
+              <option>Serenity Medical Associates</option>
+              <option>Harmony Health Center</option>
+              <option>Wellness Haven Clinic</option>
+            </select>
+          </div>
+
+          <div className="form-control w-full col-span-2">
+            <textarea
+              className="textarea textarea-bordered "
+              placeholder="Your Message"
+            ></textarea>
+          </div>
+          <div>
+            <button className="btn bg-orange-400 text-white border-none">
+              Send Now
+            </button>
+          </div>
+        </form>
       </div>
+      <Brands></Brands>
       <NewsLetter></NewsLetter>
     </div>
   );
