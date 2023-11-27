@@ -6,7 +6,7 @@ import { AuthContext } from "../Provider/AuthProvider";
 const useGetUser = () => {
   const { user } = useContext(AuthContext);
   const publicAxios = usePublicAxios();
-  const { data: isUser = {} } = useQuery({
+  const { data: isUser = {}, refetch } = useQuery({
     queryKey: ["isUser", user?.email],
     queryFn: async () => {
       const res = await publicAxios.get(`/user/${user?.email}`);
@@ -14,7 +14,7 @@ const useGetUser = () => {
     },
   });
 
-  return [isUser];
+  return [isUser, refetch];
 };
 
 export default useGetUser;

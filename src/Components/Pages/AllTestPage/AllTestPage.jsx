@@ -2,6 +2,7 @@ import useGetTests from "../../../Hooks/getTests";
 import { MdHealthAndSafety } from "react-icons/md";
 import bg from "../../../assets/breadcrumb-bg.jpg";
 import { Link } from "react-router-dom";
+import NewsLetter from "../../Shared/NewsLetter/NewsLetter";
 
 const AllTestPage = () => {
   const [tests] = useGetTests();
@@ -60,6 +61,7 @@ const AllTestPage = () => {
           </div>
         ))}
       </div>
+      <NewsLetter></NewsLetter>
     </div>
   );
 };

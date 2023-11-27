@@ -47,6 +47,16 @@ const Navbar = () => {
           All Test
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          to="/contactus"
+          className={({ isActive, isPending }) =>
+            isPending ? "pending" : isActive ? "underline text-blue-600" : ""
+          }
+        >
+          Contact
+        </NavLink>
+      </li>
     </>
   );
   return (

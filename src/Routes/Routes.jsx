@@ -16,6 +16,8 @@ import AllBanner from "../Components/Pages/AdminDashboard/AllBanner/AllBanner";
 import AllTestPage from "../Components/Pages/AllTestPage/AllTestPage";
 import Detail from "../Components/Pages/DetailPage/Detail";
 import UpdateTest from "../Components/Pages/AdminDashboard/UpdateTest/UpdateTest";
+import Blog from "../Components/Pages/Blog/Blog";
+import Contact from "../Components/Pages/Contact/Contact";
 
 const routes = createBrowserRouter([
   {
@@ -41,6 +43,14 @@ const routes = createBrowserRouter([
       {
         path: "/test/detail/:id",
         element: <Detail></Detail>,
+      },
+      {
+        path: "/blog",
+        element: <Blog></Blog>,
+      },
+      {
+        path: "/contactus",
+        element: <Contact></Contact>,
       },
     ],
   },

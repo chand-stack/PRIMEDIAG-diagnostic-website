@@ -5,22 +5,65 @@ import { MdAttachEmail } from "react-icons/md";
 import { MdBloodtype } from "react-icons/md";
 import { FaLocationDot, FaMagnifyingGlassLocation } from "react-icons/fa6";
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
+import usePublicAxios from "../../../../useAxios/usePublicAxios";
 
 const UserProfile = () => {
   const [upazila, setUpazila] = useState([]);
   const [district, setDistrict] = useState([]);
-  const [isUser] = useGetUser();
+  const publicAxios = usePublicAxios();
+  const [isUser, refetch] = useGetUser();
+  const { register, handleSubmit } = useForm();
   console.log(isUser);
   useEffect(() => {
     fetch("/upazila.json")
       .then((res) => res.json())
       .then((data) => setUpazila(data));
-  }, []);
+  }, [upazila]);
   useEffect(() => {
     fetch("/district.json")
       .then((res) => res.json())
       .then((data) => setDistrict(data));
-  }, []);
+  }, [district]);
+
+  const onSubmit = async (data) => {
+    console.log(data);
+    const name = data.name || isUser.name;
+    const email = data.email || isUser.email;
+    const bloodGroupe = data.bloodGroupe || isUser.bloodGroupe;
+    const district = data.district || isUser.district;
+    const upazila = data.upazila || isUser.upazila;
+    console.log(name, email, bloodGroupe, district, upazila);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Update it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const updatedUser = {
+          name: name,
+          email: email,
+          bloodGroupe: bloodGroupe,
+          district: district,
+          upazila: upazila,
+        };
+        publicAxios.patch(`/user/${isUser._id}`, updatedUser).then((res) => {
+          console.log(res.data);
+          refetch();
+          Swal.fire({
+            title: "Updated!",
+            text: "Your file has been Updated.",
+            icon: "success",
+          });
+        });
+      }
+    });
+  };
   return (
     <div className="font-poppin">
       <div
@@ -40,13 +83,17 @@ const UserProfile = () => {
           />
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 w-full px-5 md:w-1/2 mx-auto gap-5 mt-8">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="grid grid-cols-1 md:grid-cols-2 w-full px-5 md:w-1/2 mx-auto gap-5 mt-8"
+      >
         <div className="flex items-center gap-2">
           <SiNamecheap className="text-3xl text-[#34cceb]" />
           <p className="text-lg text-gray-600">
             Name <br />
             <span className="text-lg font-semibold text-black">
               <input
+                {...register("name")}
                 type="text"
                 defaultValue={isUser?.name}
                 placeholder="Type here"
@@ -61,6 +108,7 @@ const UserProfile = () => {
             Email <br />
             <span className="text-lg font-semibold text-black">
               <input
+                {...register("email")}
                 type="text"
                 defaultValue={isUser?.email}
                 placeholder="Type here"
@@ -75,6 +123,7 @@ const UserProfile = () => {
             Blood Group <br />
             <span className="text-lg font-semibold text-black">
               <select
+                {...register("bloodGroupe")}
                 defaultValue={isUser?.bloodGroupe}
                 className="select w-full max-w-xs"
               >
@@ -99,6 +148,7 @@ const UserProfile = () => {
             District <br />
             <span className="text-lg font-semibold text-black">
               <select
+                {...register("district")}
                 defaultValue={isUser?.district}
                 className="select w-full max-w-xs"
               >
@@ -117,6 +167,7 @@ const UserProfile = () => {
             Upazila <br />
             <span className="text-lg font-semibold text-black">
               <select
+                {...register("upazila")}
                 defaultValue={isUser?.upazila}
                 className="select w-full max-w-xs"
               >
@@ -130,11 +181,14 @@ const UserProfile = () => {
           </p>
         </div>
         <div className="">
-          <button className="btn md:mt-3 md:ml-3 bg-[#34cceb] text-white">
+          <button
+            type="submit"
+            className="btn md:mt-3 md:ml-3 bg-[#34cceb] text-white"
+          >
             Update Profile
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 };
