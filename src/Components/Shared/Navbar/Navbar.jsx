@@ -60,7 +60,7 @@ const Navbar = () => {
     </>
   );
   return (
-    <Headroom>
+    <Headroom className="z-50">
       <div className="bg-white w-full">
         <div className="navbar font-poppin container mx-auto">
           <div className="navbar-start">

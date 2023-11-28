@@ -3,6 +3,7 @@ import { MdHealthAndSafety } from "react-icons/md";
 import bg from "../../../assets/breadcrumb-bg.jpg";
 import { Link } from "react-router-dom";
 import NewsLetter from "../../Shared/NewsLetter/NewsLetter";
+import Faq from "../../Shared/Faq/Faq";
 
 const AllTestPage = () => {
   const [tests] = useGetTests();
@@ -30,7 +31,7 @@ const AllTestPage = () => {
             key={item?._id}
             className="card rounded-none bg-base-100 relative overflow-hidden group"
           >
-            <MdHealthAndSafety className="text-8xl left-3 text-[#34cceb] absolute z-20 top-[30%] bg-white rounded-full group-hover:text-orange-400 transition-colors duration-300"></MdHealthAndSafety>
+            <MdHealthAndSafety className="text-8xl left-3 text-[#34cceb] absolute z-10 top-[30%] bg-white rounded-full group-hover:text-orange-400 transition-colors duration-300"></MdHealthAndSafety>
             <figure>
               <img
                 className="lg:h-64 w-full transition-transform duration-500 transform group-hover:scale-125"
@@ -61,6 +62,7 @@ const AllTestPage = () => {
           </div>
         ))}
       </div>
+      <Faq></Faq>
       <NewsLetter></NewsLetter>
     </div>
   );

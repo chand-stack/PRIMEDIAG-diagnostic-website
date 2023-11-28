@@ -12,7 +12,7 @@ const NewsLetter = () => {
           backgroundSize: "cover",
         }}
       >
-        <div className="h-full w-full bg-[#34cceb] bg-opacity-80 lg:flex text-center justify-evenly items-center">
+        <div className="h-full w-full bg-[#34cceb] bg-opacity-80 lg:flex text-center pt-10 lg:pt-0 justify-evenly items-center">
           <h1 className="text-3xl md:text-5xl font-bold text-white">
             Subscribe to Our <br /> News Letter
           </h1>
