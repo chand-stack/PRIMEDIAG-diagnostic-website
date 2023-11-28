@@ -5,8 +5,8 @@ import { useState } from "react";
 
 const AllBanner = () => {
   const axios = usePublicAxios();
-  const [isActive, setIsActive] = useState(false);
-  console.log(isActive);
+  const [selectedBanner, setSelectedBanner] = useState(null);
+
   const { data: banner } = useQuery({
     queryKey: ["banner"],
     queryFn: async () => {
@@ -14,7 +14,11 @@ const AllBanner = () => {
       return res?.data;
     },
   });
-  console.log(banner?.data);
+
+  const handleCheckboxClick = (itemId) => {
+    setSelectedBanner(itemId === selectedBanner ? null : itemId);
+  };
+
   return (
     <div>
       <DashboardTitle title={"All Banner"}></DashboardTitle>
@@ -38,9 +42,10 @@ const AllBanner = () => {
                   <th>
                     <label>
                       <input
-                        onClick={() => setIsActive(!isActive)}
+                        onChange={() => handleCheckboxClick(item._id)}
                         type="checkbox"
                         className="checkbox"
+                        checked={selectedBanner === item._id}
                       />
                     </label>
                   </th>

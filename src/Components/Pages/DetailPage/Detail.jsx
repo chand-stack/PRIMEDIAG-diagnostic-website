@@ -3,6 +3,8 @@ import bg from "../../../assets/breadcrumb-bg.jpg";
 import usePublicAxios from "../../../useAxios/usePublicAxios";
 import { useQuery } from "@tanstack/react-query";
 import { MdRoundaboutRight } from "react-icons/md";
+import Faq from "../../Shared/Faq/Faq";
+import NewsLetter from "../../Shared/NewsLetter/NewsLetter";
 const Detail = () => {
   const publicAxios = usePublicAxios();
   const { id } = useParams();
@@ -34,8 +36,8 @@ const Detail = () => {
       </div>
       <div className="container mx-auto">
         <div className="md:flex items-center my-10">
-          <div className="md:w-1/2">
-            <h1 className="text-[#34cceb] text-lg md:text-2xl font-medium flex-grow flex items-center gap-3">
+          <div className="md:w-1/2 text-center">
+            <h1 className="text-[#34cceb] text-lg md:text-2xl font-medium flex-grow flex justify-center items-center gap-3">
               <MdRoundaboutRight />
               PRIME DIAG
             </h1>
@@ -84,6 +86,8 @@ const Detail = () => {
           </div>
         </div>
       </div>
+      <Faq></Faq>
+      <NewsLetter></NewsLetter>
     </div>
   );
 };

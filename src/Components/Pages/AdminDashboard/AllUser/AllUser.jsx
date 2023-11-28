@@ -2,14 +2,16 @@ import { useQuery } from "@tanstack/react-query";
 import usePublicAxios from "../../../../useAxios/usePublicAxios";
 import DashboardTitle from "../../../Shared/DashboardTitle/DashboardTitle";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 const AllUser = () => {
   const [showDetail, setShowDetail] = useState({});
+  const [search, setSearch] = useState({});
   const axios = usePublicAxios();
-  const { data: users = [] } = useQuery({
-    queryKey: ["users"],
+  const { data: users = [], refetch } = useQuery({
+    queryKey: ["users", search],
     queryFn: async () => {
-      const res = await axios.get("/user");
+      const res = await axios.get(`/user?search=${search}`);
       return res.data.data;
     },
   });
@@ -18,11 +20,68 @@ const AllUser = () => {
     document.getElementById("my_modal_1").showModal();
   };
 
-  const makeAdminHandler = async (id) => {};
+  const makeAdminHandler = async (id) => {
+    console.log(id);
+    const makingAdmin = { role: "isAdmin" };
+    const res = await axios.patch(`/user/${id}`, makingAdmin);
+    if (res.data.status === "success") {
+      Swal.fire({
+        title: "Congratulations!",
+        text: "The user is now an admin",
+        icon: "success",
+      });
+      refetch();
+    }
+  };
+  const blockHandler = async (id) => {
+    Swal.fire({
+      title: "Blocking this user cannot be undone.!",
+      text: "Are you sure you want to proceed?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Block it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const blockUser = { status: "block" };
+        axios.patch(`/user/${id}`, blockUser).then((res) => {
+          if (res.data.status === "success") {
+            Swal.fire({
+              title: "User blocked!",
+              text: "User successfully blocked.",
+              icon: "success",
+            });
+            refetch();
+          }
+        });
+      }
+    });
+  };
+  const searchHandler = (e) => {
+    e.preventDefault();
+    setSearch(e.target.search.value);
+  };
   return (
     <div>
       <DashboardTitle title={"All Users"}></DashboardTitle>
       <div>
+        <form onSubmit={searchHandler} className="text-center my-3">
+          <div className="join">
+            <div>
+              <div>
+                <input
+                  className="input input-bordered rounded-r-none"
+                  placeholder="Search by email"
+                  name="search"
+                />
+              </div>
+            </div>
+            <div className="indicator">
+              <button className="btn join-item">Search</button>
+            </div>
+          </div>
+        </form>
         <div className="overflow-x-auto">
           <table className="table">
             {/* head */}
@@ -33,6 +92,7 @@ const AllUser = () => {
                 <th>Email</th>
                 <th>Status</th>
                 <th>Role</th>
+                <th>Action</th>
                 <th>Information</th>
               </tr>
             </thead>
@@ -48,13 +108,33 @@ const AllUser = () => {
                   <td>{item?.email}</td>
                   <td>{item?.status}</td>
                   <td>
-                    <button
-                      onClick={() => makeAdminHandler(item?._id)}
-                      className="btn bg-[#34cceb] text-white btn-xs"
-                    >
-                      Make Admin
-                    </button>
+                    {item?.role === "isAdmin" ? (
+                      <button
+                        onClick={() => makeAdminHandler(item?._id)}
+                        className="btn bg-[#34cceb] text-white btn-xs"
+                      >
+                        Make Admin
+                      </button>
+                    ) : (
+                      <p>Admin</p>
+                    )}
                   </td>
+                  {item.status === "active" ? (
+                    <td>
+                      {item?.role === "isAdmin" ? (
+                        <button
+                          onClick={() => blockHandler(item?._id)}
+                          className="btn bg-[#34cceb] text-white btn-xs"
+                        >
+                          Block User
+                        </button>
+                      ) : (
+                        <p>Admin</p>
+                      )}
+                    </td>
+                  ) : (
+                    <td>Blocked</td>
+                  )}
                   <th>
                     <button
                       onClick={() => detailHandler(item)}

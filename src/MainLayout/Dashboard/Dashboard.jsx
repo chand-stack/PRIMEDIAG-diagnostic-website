@@ -7,7 +7,7 @@ import { FaHome } from "react-icons/fa";
 import { IoIosAddCircle } from "react-icons/io";
 import { PiFlagBannerFill } from "react-icons/pi";
 const Dashboard = () => {
-  const isAdmin = false;
+  const isAdmin = true;
   return (
     <div className="flex font-poppin mx-auto">
       <div className="lg:w-1/4 min-h-screen bg-slate-50">

@@ -4,7 +4,7 @@ import usePublicAxios from "../useAxios/usePublicAxios";
 const useGetTests = () => {
   const publicAxios = usePublicAxios();
 
-  const { data: tests = [] } = useQuery({
+  const { data: tests, refetch = [] } = useQuery({
     queryKey: ["tests"],
     queryFn: async () => {
       const res = await publicAxios.get("/service");
@@ -12,7 +12,7 @@ const useGetTests = () => {
     },
   });
 
-  return [tests];
+  return [tests, refetch];
 };
 
 export default useGetTests;
