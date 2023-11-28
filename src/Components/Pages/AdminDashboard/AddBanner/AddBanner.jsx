@@ -37,7 +37,7 @@ const AddBanner = () => {
       if (ress.data.status == "success") {
         Swal.fire({
           title: "Success!",
-          text: "The product has been added successfully.",
+          text: "The Banner has been added successfully.",
           icon: "success",
         });
       }
@@ -58,7 +58,7 @@ const AddBanner = () => {
                   required
                   type="text"
                   {...register("name")}
-                  placeholder="email"
+                  placeholder="Name"
                   className="input input-bordered w-full"
                 />
               </div>
@@ -81,7 +81,7 @@ const AddBanner = () => {
                     required
                     type="text"
                     {...register("title")}
-                    placeholder="slot"
+                    placeholder="Title"
                     className="input input-bordered w-full "
                   />
                 </div>
@@ -94,7 +94,7 @@ const AddBanner = () => {
                 <textarea
                   {...register("description")}
                   className="textarea textarea-bordered"
-                  placeholder="Details"
+                  placeholder="Description"
                 ></textarea>
               </div>
               <div className="form-control w-full ">
@@ -107,7 +107,7 @@ const AddBanner = () => {
                   required
                   type="text"
                   {...register("couponcode")}
-                  placeholder="price"
+                  placeholder="Coupon code"
                   className="input input-bordered w-full "
                 />
               </div>
@@ -119,7 +119,7 @@ const AddBanner = () => {
                   required
                   type="text"
                   {...register("couponrate")}
-                  placeholder="price"
+                  placeholder="Coupon rate"
                   className="input input-bordered w-full "
                 />
               </div>

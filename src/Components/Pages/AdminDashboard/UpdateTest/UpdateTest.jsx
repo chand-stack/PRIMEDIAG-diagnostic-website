@@ -13,7 +13,7 @@ const UpdateTest = () => {
   const { register, handleSubmit } = useForm();
 
   const { id } = useParams();
-  const { data: testDetail = {} } = useQuery({
+  const { data: testDetail = {}, refetch } = useQuery({
     queryKey: ["testDetail", id],
     queryFn: async () => {
       const res = await axios.get(`/service/${id}`);
@@ -23,14 +23,14 @@ const UpdateTest = () => {
   console.log(testDetail);
 
   const onSubmit = async (data) => {
-    const name = data.name || testDetail?.name;
-    const image = data.image || testDetail?.image;
-    const details = data.details || testDetail?.details;
-    const slot = parseInt(data.slot) || testDetail?.slot;
-    const price = parseInt(data.price) || testDetail?.price;
+    const name = data.name;
+    const image = data.image;
+    const details = data.details;
+    const slot = parseInt(data.slot);
+    const price = parseInt(data.price);
     const date = startDate;
     // console.log(name,image,details,slot,price,date);
-    const testDetail = {
+    const testDetails = {
       name: name,
       image: image,
       details: details,
@@ -38,15 +38,16 @@ const UpdateTest = () => {
       price: price,
       date: date,
     };
-    const res = await axios.patch(`/service/${testDetail?._id}`, testDetail);
+    const res = await axios.patch(`/service/${testDetail?._id}`, testDetails);
     if (res.data.status == "success") {
       Swal.fire({
         title: "Success!",
         text: "The product updated successfully.",
         icon: "success",
       });
+      refetch();
     }
-    console.log(testDetail);
+    console.log(testDetails);
   };
   return (
     <div>

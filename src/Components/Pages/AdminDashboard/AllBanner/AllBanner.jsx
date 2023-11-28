@@ -2,12 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import usePublicAxios from "../../../../useAxios/usePublicAxios";
 import DashboardTitle from "../../../Shared/DashboardTitle/DashboardTitle";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 const AllBanner = () => {
   const axios = usePublicAxios();
   const [selectedBanner, setSelectedBanner] = useState(null);
 
-  const { data: banner } = useQuery({
+  const { data: banner, refetch } = useQuery({
     queryKey: ["banner"],
     queryFn: async () => {
       const res = await axios.get("/banner");
@@ -17,6 +18,53 @@ const AllBanner = () => {
 
   const handleCheckboxClick = (itemId) => {
     setSelectedBanner(itemId === selectedBanner ? null : itemId);
+  };
+  const changeBannerHandler = async (id) => {
+    const unselectedBanner = banner?.data?.filter((item) => item._id !== id);
+    const unselectedIds = {
+      Ids: unselectedBanner.map((item) => item._id),
+    };
+    const updatedDoc = {
+      isActive: true,
+    };
+    const response = await axios.patch(`/banner/${id}`, updatedDoc);
+    if (response.data.status === "success") {
+      axios.patch("/banner", unselectedIds).then((res) => {
+        if (res.data.status === "success") {
+          Swal.fire({
+            title: "Selected!",
+            text: "Your banner has been Selected.",
+            icon: "success",
+          });
+        }
+      });
+    }
+  };
+
+  const bannerDeleteHandler = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log(id);
+        axios.delete(`/banner/${id}`).then((res) => {
+          if (res.data.status == "success") {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your banner has been deleted.",
+              icon: "success",
+            });
+          }
+        });
+      }
+    });
   };
 
   return (
@@ -62,7 +110,10 @@ const AllBanner = () => {
                   <td>{item?.couponcode}</td>
                   <td>{item?.couponrate}%</td>
                   <th>
-                    <button className="btn text-white bg-red-500 btn-xs">
+                    <button
+                      onClick={() => bannerDeleteHandler(item?._id)}
+                      className="btn text-white bg-red-500 btn-xs"
+                    >
                       Delete
                     </button>
                   </th>
@@ -81,6 +132,16 @@ const AllBanner = () => {
               </tr>
             </tfoot>
           </table>
+          <div className="text-center mt-5">
+            {selectedBanner && (
+              <button
+                onClick={() => changeBannerHandler(selectedBanner)}
+                className="btn bg-[#34cceb] text-white"
+              >
+                Save Change
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

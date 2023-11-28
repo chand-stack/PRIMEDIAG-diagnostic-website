@@ -78,7 +78,9 @@ const AllUser = () => {
               </div>
             </div>
             <div className="indicator">
-              <button className="btn join-item">Search</button>
+              <button className="btn join-item bg-[#34cceb] text-white">
+                Search
+              </button>
             </div>
           </div>
         </form>
