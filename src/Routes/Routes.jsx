@@ -40,6 +40,7 @@ const routes = createBrowserRouter([
       {
         path: "/alltestpage",
         element: <AllTestPage></AllTestPage>,
+        loader: () => fetch("http://localhost:5000/service/count"),
       },
       {
         path: "/test/detail/:id",

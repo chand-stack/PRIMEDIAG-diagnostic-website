@@ -21,7 +21,7 @@ const Navbar = () => {
         <NavLink
           to="/"
           className={({ isActive, isPending }) =>
-            isPending ? "pending" : isActive ? "underline text-blue-600" : ""
+            isPending ? "pending" : isActive ? "underline text-[#34cceb]" : ""
           }
         >
           Home
@@ -29,19 +29,9 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          to="/blog"
-          className={({ isActive, isPending }) =>
-            isPending ? "pending" : isActive ? "underline text-blue-600" : ""
-          }
-        >
-          Blog
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
           to="/alltestpage"
           className={({ isActive, isPending }) =>
-            isPending ? "pending" : isActive ? "underline text-blue-600" : ""
+            isPending ? "pending" : isActive ? "underline text-[#34cceb]" : ""
           }
         >
           All Test
@@ -51,7 +41,7 @@ const Navbar = () => {
         <NavLink
           to="/contactus"
           className={({ isActive, isPending }) =>
-            isPending ? "pending" : isActive ? "underline text-blue-600" : ""
+            isPending ? "pending" : isActive ? "underline text-[#34cceb]" : ""
           }
         >
           Contact
@@ -61,18 +51,28 @@ const Navbar = () => {
         <NavLink
           to="/aboutus"
           className={({ isActive, isPending }) =>
-            isPending ? "pending" : isActive ? "underline text-blue-600" : ""
+            isPending ? "pending" : isActive ? "underline text-[#34cceb]" : ""
           }
         >
           About Us
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/blog"
+          className={({ isActive, isPending }) =>
+            isPending ? "pending" : isActive ? "underline text-[#34cceb]" : ""
+          }
+        >
+          Blog
         </NavLink>
       </li>
     </>
   );
   return (
     <Headroom className="z-50">
-      <div className="bg-white w-full">
-        <div className="navbar font-poppin container mx-auto">
+      <div className="bg-white w-full shadow-md shadow-[#34cceb]">
+        <div className="navbar font-poppin container mx-auto px-4 py-5">
           <div className="navbar-start">
             <div className="dropdown">
               <label tabIndex={0} className="btn btn-ghost lg:hidden">

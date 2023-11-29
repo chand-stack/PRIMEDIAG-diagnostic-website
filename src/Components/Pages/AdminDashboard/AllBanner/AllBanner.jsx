@@ -3,12 +3,14 @@ import usePublicAxios from "../../../../useAxios/usePublicAxios";
 import DashboardTitle from "../../../Shared/DashboardTitle/DashboardTitle";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import useBanner from "../../../../Hooks/useBanner";
 
 const AllBanner = () => {
   const axios = usePublicAxios();
   const [selectedBanner, setSelectedBanner] = useState(null);
+  const [, refetch] = useBanner();
 
-  const { data: banner, refetch } = useQuery({
+  const { data: banner, refetch: refresh } = useQuery({
     queryKey: ["banner"],
     queryFn: async () => {
       const res = await axios.get("/banner");
@@ -36,6 +38,7 @@ const AllBanner = () => {
             text: "Your banner has been Selected.",
             icon: "success",
           });
+          refetch();
         }
       });
     }
@@ -55,7 +58,7 @@ const AllBanner = () => {
         console.log(id);
         axios.delete(`/banner/${id}`).then((res) => {
           if (res.data.status == "success") {
-            refetch();
+            refresh();
             Swal.fire({
               title: "Deleted!",
               text: "Your banner has been deleted.",

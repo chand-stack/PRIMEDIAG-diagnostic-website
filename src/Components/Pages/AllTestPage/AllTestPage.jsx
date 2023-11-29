@@ -1,38 +1,36 @@
 import useGetTests from "../../../Hooks/getTests";
 import { MdHealthAndSafety } from "react-icons/md";
 import bg from "../../../assets/breadcrumb-bg.jpg";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import NewsLetter from "../../Shared/NewsLetter/NewsLetter";
 import Faq from "../../Shared/Faq/Faq";
 import { useState } from "react";
-import usePublicAxios from "../../../useAxios/usePublicAxios";
-import { useQuery } from "@tanstack/react-query";
 
 const AllTestPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [itemPerPage, setItemPerPage] = useState(3);
 
-  const [tests] = useGetTests();
-  console.log(tests?.length);
+  const [tests] = useGetTests(currentPage, itemPerPage);
 
-  const publicAxios = usePublicAxios();
+  const { data } = useLoaderData();
+  console.log(data);
 
-  const { data: testList = [], refetch } = useQuery({
-    queryKey: ["tests"],
-    queryFn: async () => {
-      const res = await publicAxios.get(
-        `/service?page=${currentPage}&size=${itemPerPage}`
-      );
-      return res?.data?.data;
-    },
-  });
+  const pages = Math.ceil(data / itemPerPage);
+  const totalPages = [...Array(pages).keys()];
+  console.log(totalPages);
 
-  // let itemPage = [];
-  // const totalPage = Math.ceil(tests?.length / itemPerPage);
-  // for (let i = 0; i < totalPage; i++) {
-  //   itemPage.push(i);
-  // }
-  console.log(testList.length);
+  const prevHandler = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const nextHandler = () => {
+    if (currentPage < totalPages.length) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
   return (
     <div className="font-poppin bg-gray-100">
       <div
@@ -50,8 +48,8 @@ const AllTestPage = () => {
           </h1>
         </div>
       </div>
-      <div className="container px-2 lg:px-0 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-5 py-20">
-        {testList?.map((item) => (
+      <div className="container px-2 lg:px-0 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-5 pt-20 pb-10">
+        {tests?.map((item) => (
           <div
             key={item?._id}
             className="card rounded-none bg-base-100 relative overflow-hidden group"
@@ -59,7 +57,7 @@ const AllTestPage = () => {
             <MdHealthAndSafety className="text-8xl left-3 text-[#34cceb] absolute z-10 top-[30%] bg-white rounded-full group-hover:text-orange-400 transition-colors duration-300"></MdHealthAndSafety>
             <figure>
               <img
-                className="lg:h-64 w-full transition-transform duration-500 transform group-hover:scale-125"
+                className="lg:h-64 w-full transition-transform duration-500 transform group-hover:scale-125 overflow-hidden"
                 src={item?.image}
                 alt="Tests"
               />
@@ -87,12 +85,26 @@ const AllTestPage = () => {
           </div>
         ))}
       </div>
-      <div className="container mx-auto">
-        <button className="btn bg-[#34cceb] text-white">Prev</button>
-        {/* {itemPage.map((item, idx) => (
-          <button key={item}>{}</button>
-        ))} */}
-        <button className="btn bg-[#34cceb] text-white">Next</button>
+      <div className="container mx-auto flex justify-center items-center mb-10 gap-4">
+        <button onClick={prevHandler} className="btn bg-[#34cceb] text-white">
+          Prev
+        </button>
+        {totalPages.map((item) => (
+          <button
+            onClick={() => setCurrentPage(item)}
+            key={item}
+            className={
+              currentPage === item
+                ? "btn bg-orange-500 text-white"
+                : "btn bg-[#34cceb] text-white"
+            }
+          >
+            {item + 1}
+          </button>
+        ))}
+        <button onClick={nextHandler} className="btn bg-[#34cceb] text-white">
+          Next
+        </button>
       </div>
       <Faq></Faq>
       <NewsLetter></NewsLetter>
