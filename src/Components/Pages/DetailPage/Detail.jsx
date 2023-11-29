@@ -15,13 +15,17 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckOut from "./CheckOut";
 import { useState } from "react";
+import useBanner from "../../../Hooks/useBanner";
 
 const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_GATWAY_PK);
 const Detail = () => {
+  const [banner] = useBanner();
+  const activeBanner = banner?.filter((item) => item.isActive === true);
+  // console.log(activeBanner[0]);
   const publicAxios = usePublicAxios();
   const [amount, setAmount] = useState(null);
   const { id } = useParams();
-  const { data: testDetail = {} } = useQuery({
+  const { data: testDetail = {}, refetch } = useQuery({
     queryKey: ["testDetail", id],
     queryFn: async () => {
       const res = await publicAxios.get(`/service/${id}`);
@@ -40,6 +44,21 @@ const Detail = () => {
     }
     setAmount(testDetail.price);
     document.getElementById("my_modal_1").showModal();
+    document.getElementById("appliedBtn").addEventListener("click", () => {
+      document.getElementById("my_modal_1").close();
+      // console.log("Clicked");
+    });
+  };
+
+  const promoHandler = (e) => {
+    console.log(e.target.value);
+    if (activeBanner[0].couponcode === e.target.value) {
+      const discountedAmount = (activeBanner[0].couponrate / 100) * amount;
+      const afterDiscount = amount - discountedAmount;
+      setAmount(afterDiscount);
+    } else {
+      setAmount(testDetail.price);
+    }
   };
 
   return (
@@ -123,6 +142,7 @@ const Detail = () => {
               <div className=" p-3">
                 <h1 className="font-medium">Apply PROMOCODE</h1>
                 <input
+                  onChange={promoHandler}
                   type="text"
                   placeholder="Promo"
                   className="input input-bordered w-full max-w-xs text-black"
@@ -133,12 +153,16 @@ const Detail = () => {
               </div>
               <div>
                 <Elements stripe={stripePromise}>
-                  <CheckOut amount={amount}></CheckOut>
+                  <CheckOut
+                    amount={amount}
+                    testDetail={testDetail}
+                    refetch={refetch}
+                  ></CheckOut>
                 </Elements>
               </div>
               <div className="flex justify-evenly items-center">
                 <div className="flex flex-col items-center">
-                  <p className="text-white font-medium text-lg">Pay</p>
+                  <p className="text-white font-medium text-lg -mb-3">Pay</p>
                   <img className="h-12 w-12" src={img} alt="" />
                 </div>
                 <div>
