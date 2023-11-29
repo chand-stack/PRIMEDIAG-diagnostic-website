@@ -1,12 +1,25 @@
 import { useParams } from "react-router-dom";
 import bg from "../../../assets/breadcrumb-bg.jpg";
+import logo from "../../../assets/PdLogo.png";
+import img from "../../../assets/Group (3).svg";
+import img1 from "../../../assets/Mastercard.svg";
+import img2 from "../../../assets/UPI.svg";
+import img3 from "../../../assets/Visa.svg";
 import usePublicAxios from "../../../useAxios/usePublicAxios";
 import { useQuery } from "@tanstack/react-query";
 import { MdRoundaboutRight } from "react-icons/md";
 import Faq from "../../Shared/Faq/Faq";
 import NewsLetter from "../../Shared/NewsLetter/NewsLetter";
+import Swal from "sweetalert2";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckOut from "./CheckOut";
+import { useState } from "react";
+
+const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_GATWAY_PK);
 const Detail = () => {
   const publicAxios = usePublicAxios();
+  const [amount, setAmount] = useState(null);
   const { id } = useParams();
   const { data: testDetail = {} } = useQuery({
     queryKey: ["testDetail", id],
@@ -15,7 +28,19 @@ const Detail = () => {
       return res.data.data;
     },
   });
-  console.log(testDetail);
+
+  const paymentModalHandler = () => {
+    if (testDetail.slot === 0) {
+      Swal.fire({
+        title: "Fully booked right now.",
+        text: "Try again soon!",
+        icon: "error",
+      });
+      return;
+    }
+    setAmount(testDetail.price);
+    document.getElementById("my_modal_1").showModal();
+  };
 
   return (
     <div className="font-poppin bg-gray-100">
@@ -82,8 +107,57 @@ const Detail = () => {
                 ${testDetail?.price}
               </p>
             </div>
-            <button className="btn bg-[#34cceb] text-white">Book Now</button>
+            <button
+              onClick={paymentModalHandler}
+              className="btn bg-[#34cceb] text-white"
+            >
+              Book Now
+            </button>
           </div>
+          <dialog id="my_modal_1" className="modal">
+            <div className="modal-box bg-blue-950 text-white">
+              <div className="flex items-center justify-center gap-2">
+                <h1 className="font-semibold text-xl">Prime Diag</h1>
+                <img className="w-12" src={logo} alt="" />
+              </div>
+              <div className=" p-3">
+                <h1 className="font-medium">Apply PROMOCODE</h1>
+                <input
+                  type="text"
+                  placeholder="Promo"
+                  className="input input-bordered w-full max-w-xs text-black"
+                />
+              </div>
+              <div className=" px-3">
+                <h1 className="font-medium">Amount: ${amount}</h1>
+              </div>
+              <div>
+                <Elements stripe={stripePromise}>
+                  <CheckOut amount={amount}></CheckOut>
+                </Elements>
+              </div>
+              <div className="flex justify-evenly items-center">
+                <div className="flex flex-col items-center">
+                  <p className="text-white font-medium text-lg">Pay</p>
+                  <img className="h-12 w-12" src={img} alt="" />
+                </div>
+                <div>
+                  <img className="h-12 w-12" src={img1} alt="" />
+                </div>
+                <div>
+                  <img className="h-12 w-12" src={img2} alt="" />
+                </div>
+                <div>
+                  <img className="h-12 w-12" src={img3} alt="" />
+                </div>
+              </div>
+              <div className="modal-action">
+                <form method="dialog">
+                  <button className="btn">Cancel</button>
+                </form>
+              </div>
+            </div>
+          </dialog>
         </div>
       </div>
       <Faq></Faq>
