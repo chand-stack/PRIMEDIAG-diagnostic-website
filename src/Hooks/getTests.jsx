@@ -18,7 +18,7 @@ const useGetTests = (currentPage, itemPerPage) => {
     },
   });
 
-  return [tests, refetch];
+  return [tests, refetch, isLoading];
 };
 
 export default useGetTests;

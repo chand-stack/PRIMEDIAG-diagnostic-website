@@ -3,9 +3,11 @@ import usePublicAxios from "../../../../useAxios/usePublicAxios";
 import DashboardTitle from "../../../Shared/DashboardTitle/DashboardTitle";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import useSecureAxios from "../../../../useAxios/useSecureAxios";
 
 const AllTest = () => {
   const axios = usePublicAxios();
+  const secureAxios = useSecureAxios();
   const { data: tests, refetch } = useQuery({
     queryKey: ["tests"],
     queryFn: async () => {
@@ -26,7 +28,7 @@ const AllTest = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         console.log(id);
-        axios.delete(`/service/${id}`).then((res) => {
+        secureAxios.delete(`/service/${id}`).then((res) => {
           if (res.data.status == "success") {
             refetch();
             Swal.fire({

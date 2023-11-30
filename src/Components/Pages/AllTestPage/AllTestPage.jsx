@@ -10,11 +10,15 @@ const AllTestPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [itemPerPage, setItemPerPage] = useState(3);
 
-  const [tests] = useGetTests(currentPage, itemPerPage);
+  const [tests, refetch, isLoading] = useGetTests(currentPage, itemPerPage);
 
   const { data } = useLoaderData();
   console.log(data);
-
+  if (isLoading) {
+    return (
+      <span className="loading loading-bars loading-lg h-screen mx-auto flex justify-center items-center"></span>
+    );
+  }
   const pages = Math.ceil(data / itemPerPage);
   const totalPages = [...Array(pages).keys()];
   console.log(totalPages);
