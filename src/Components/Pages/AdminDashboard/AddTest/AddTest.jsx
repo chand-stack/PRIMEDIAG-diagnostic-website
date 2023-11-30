@@ -87,7 +87,9 @@ const AddTest = () => {
               <div className="flex items-center gap-2">
                 <div className="form-control w-full ">
                   <label className="label">
-                    <span className="label-text font-semibold">Date</span>
+                    <span className="label-text font-semibold">
+                      Last Date Of Appointment
+                    </span>
                   </label>
                   <DatePicker
                     className="z-0"

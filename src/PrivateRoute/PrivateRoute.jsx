@@ -13,7 +13,7 @@ const PrivateRoute = ({ children }) => {
     );
   }
 
-  if ((user && isAdmin?.role === "user") || isAdmin?.role === "isAdmin") {
+  if ((user && isAdmin?.role === "user") || isAdmin?.status === "active") {
     return children;
   }
 

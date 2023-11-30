@@ -42,7 +42,8 @@ const routes = createBrowserRouter([
       {
         path: "/alltestpage",
         element: <AllTestPage></AllTestPage>,
-        loader: () => fetch("http://localhost:5000/service/count"),
+        loader: () =>
+          fetch("https://diagnostic-server.vercel.app/service/count"),
       },
       {
         path: "/test/detail/:id",
