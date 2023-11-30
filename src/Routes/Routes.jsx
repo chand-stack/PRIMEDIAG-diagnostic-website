@@ -20,6 +20,7 @@ import Blog from "../Components/Pages/Blog/Blog";
 import Contact from "../Components/Pages/Contact/Contact";
 import AboutUs from "../Components/Pages/AboutUs/AboutUs";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import AdminRoute from "../PrivateRoute/AdminRoute";
 
 const routes = createBrowserRouter([
   {
@@ -95,7 +96,11 @@ const routes = createBrowserRouter([
       },
       {
         path: "allusers",
-        element: <AllUser></AllUser>,
+        element: (
+          <AdminRoute>
+            <AllUser></AllUser>
+          </AdminRoute>
+        ),
       },
       {
         path: "addtest",

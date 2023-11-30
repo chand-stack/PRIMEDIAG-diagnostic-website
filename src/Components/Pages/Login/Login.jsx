@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import img from "../../../assets/19836.jpg";
 import logo from "../../../assets/PdLogo.png";
-import { FcGoogle } from "react-icons/fc";
+// import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../../Provider/AuthProvider";
@@ -88,10 +88,10 @@ const Login = () => {
                 type="submit"
               />
             </form>
-            <button className="btn w-full border-2 btn-outline border-blue-600 text-blue-600">
+            {/* <button className="btn w-full border-2 btn-outline border-blue-600 text-blue-600">
               <FcGoogle className="text-xl" />
               Sign in with Google
-            </button>
+            </button> */}
             <p className="text-gray-500 text-center">
               Don&lsquo;t have an account?{" "}
               <Link to="/register" className="font-semibold text-blue-600">
