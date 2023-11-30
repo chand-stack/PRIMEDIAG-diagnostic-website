@@ -1,23 +1,34 @@
 import { useQuery } from "@tanstack/react-query";
-import usePublicAxios from "../../../../useAxios/usePublicAxios";
+// import usePublicAxios from "../../../../useAxios/usePublicAxios";
 import DashboardTitle from "../../../Shared/DashboardTitle/DashboardTitle";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import useBanner from "../../../../Hooks/useBanner";
 import { Helmet } from "react-helmet-async";
+import useSecureAxios from "../../../../useAxios/useSecureAxios";
 
 const AllBanner = () => {
-  const axios = usePublicAxios();
+  const axios = useSecureAxios();
   const [selectedBanner, setSelectedBanner] = useState(null);
   const [, refetch] = useBanner();
 
-  const { data: banner, refetch: refresh } = useQuery({
+  const {
+    data: banner,
+    refetch: refresh,
+    isLoading,
+  } = useQuery({
     queryKey: ["banner"],
     queryFn: async () => {
       const res = await axios.get("/banner");
-      return res?.data;
+      return res?.data?.data;
     },
   });
+  console.log(banner);
+  if (isLoading) {
+    return (
+      <span className="loading loading-bars loading-lg min-h-screen mx-auto flex justify-center items-center"></span>
+    );
+  }
 
   const handleCheckboxClick = (itemId) => {
     setSelectedBanner(itemId === selectedBanner ? null : itemId);
@@ -92,7 +103,7 @@ const AllBanner = () => {
               </tr>
             </thead>
             <tbody>
-              {banner?.data?.map((item) => (
+              {banner?.map((item) => (
                 <tr key={item._id}>
                   <th>
                     <label>

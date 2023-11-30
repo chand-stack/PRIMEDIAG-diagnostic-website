@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import img from "../../../assets/19836.jpg";
 import logo from "../../../assets/PdLogo.png";
 import { FcGoogle } from "react-icons/fc";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import Swal from "sweetalert2";
@@ -11,6 +11,8 @@ const Login = () => {
   const { loginUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location);
 
   const { register, handleSubmit } = useForm();
 
@@ -26,7 +28,8 @@ const Login = () => {
           text: " It's great to see you again at PRIME DIAG.",
           icon: "success",
         });
-        navigate("/");
+        navigate(location?.state || "/");
+        window.location.reload();
       })
       .catch((err) => {
         console.log(err);

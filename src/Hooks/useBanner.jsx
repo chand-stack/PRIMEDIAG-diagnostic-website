@@ -3,14 +3,18 @@ import usePublicAxios from "../useAxios/usePublicAxios";
 
 const useBanner = () => {
   const axios = usePublicAxios();
-  const { data: banner = [], refetch } = useQuery({
+  const {
+    data: banner = [],
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["banner"],
     queryFn: async () => {
       const res = await axios.get("/banner");
       return res.data.data;
     },
   });
-  return [banner, refetch];
+  return [banner, refetch, isLoading];
 };
 
 export default useBanner;

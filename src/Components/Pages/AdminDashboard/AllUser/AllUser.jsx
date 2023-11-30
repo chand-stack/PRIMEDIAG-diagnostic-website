@@ -115,27 +115,27 @@ const AllUser = () => {
                   <td>{item?.status}</td>
                   <td>
                     {item?.role === "isAdmin" ? (
+                      <p>Admin</p>
+                    ) : (
                       <button
                         onClick={() => makeAdminHandler(item?._id)}
                         className="btn bg-[#34cceb] text-white btn-xs"
                       >
                         Make Admin
                       </button>
-                    ) : (
-                      <p>Admin</p>
                     )}
                   </td>
                   {item.status === "active" ? (
                     <td>
                       {item?.role === "isAdmin" ? (
+                        <p>Admin</p>
+                      ) : (
                         <button
                           onClick={() => blockHandler(item?._id)}
                           className="btn bg-[#34cceb] text-white btn-xs"
                         >
                           Block User
                         </button>
-                      ) : (
-                        <p>Admin</p>
                       )}
                     </td>
                   ) : (

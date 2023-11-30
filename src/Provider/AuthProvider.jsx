@@ -41,12 +41,13 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       console.log(currentUser);
       setUser(currentUser);
+      setLoading(false);
       if (currentUser) {
         // get token and store client
         const userInfo = { email: currentUser?.email };
         axios.post("/jwt", userInfo).then((res) => {
-          if (res.data.data) {
-            localStorage.setItem("access-token", res.data.data);
+          if (res.data.token) {
+            localStorage.setItem("access-token", res.data.token);
             setLoading(false);
           }
         });

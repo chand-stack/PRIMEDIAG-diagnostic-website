@@ -32,7 +32,7 @@ const Featured = () => {
           {featureTest?.map((item) => (
             <div
               key={item?._id}
-              className="card rounded-none bg-base-100 relative overflow-hidden group"
+              className="card rounded-none bg-base-100 relative overflow-hidden group border"
             >
               <figure>
                 <img
@@ -52,7 +52,7 @@ const Featured = () => {
                 <div className="card-actions justify-end">
                   <Link
                     to={`/test/detail/${item?._id}`}
-                    className="btn bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:bg-blue-900"
+                    className="btn bg-orange-400 text-white hover:bg-orange-600"
                   >
                     View Details
                   </Link>

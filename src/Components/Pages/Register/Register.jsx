@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
-import img from "../../../assets/19836.jpg";
 import logo from "../../../assets/PdLogo.png";
-import { FcGoogle } from "react-icons/fc";
+// import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../Provider/AuthProvider";
@@ -31,7 +30,6 @@ const Register = () => {
   }, []);
 
   const { register, handleSubmit } = useForm();
-
   const onSubmit = async (data) => {
     const name = data.name;
     const photo = data.photo;
@@ -135,7 +133,7 @@ const Register = () => {
       <Helmet>
         <title>PrimeDiag | SignUp</title>
       </Helmet>
-      <div className="container mx-auto pt-10 grid grid-cols-1 md:grid-cols-2 font-poppin bg-gray-50">
+      <div className="container mx-auto pt-10 font-poppin bg-gray-50">
         <div className=" px-5">
           <div className="max-w-md mx-auto space-y-4">
             <div className="flex items-center gap-2">
@@ -146,7 +144,10 @@ const Register = () => {
             <p className="font-medium text-gray-500">
               Enter your information to sign up
             </p>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="grid grid-cols-1 md:grid-cols-2 gap-2 lg:gap-4"
+            >
               <div className="form-control w-full">
                 <label className="label">
                   <span className="label-text">Name</span>
@@ -255,14 +256,14 @@ const Register = () => {
               </div>
 
               <input
-                className="btn w-full mt-3 text-white bg-blue-600 hover:bg-blue-800"
+                className="btn col-span-2 w-full mt-3 text-white bg-blue-600 hover:bg-blue-800"
                 type="submit"
               />
             </form>
-            <button className="btn w-full border-2 btn-outline border-blue-600 text-blue-600">
+            {/* <button className="btn w-full border-2 btn-outline border-blue-600 text-blue-600">
               <FcGoogle className="text-xl" />
               Sign in with Google
-            </button>
+            </button> */}
             <p className="text-gray-500 text-center">
               Already have an account?{" "}
               <Link to="/login" className="font-semibold text-blue-600">
@@ -270,9 +271,6 @@ const Register = () => {
               </Link>{" "}
             </p>
           </div>
-        </div>
-        <div className="md:p-5">
-          <img className="w-full object-center rounded-xl" src={img} alt="" />
         </div>
       </div>
     </div>
