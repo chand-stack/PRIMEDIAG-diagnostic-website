@@ -61,7 +61,7 @@ const CheckOut = ({ amount, testDetail, refetch }) => {
           email: user.email,
           price: amount,
           transactionId: paymentIntent.id,
-          date: new Date(),
+          date: testDetail.date,
           status: "pending",
         };
         const response = await axios.post("/reservation", reservation);
