@@ -15,7 +15,7 @@ const UserProfile = () => {
   const publicAxios = usePublicAxios();
   const [isUser, refetch] = useGetUser();
   const { register, handleSubmit } = useForm();
-  console.log(isUser);
+  // console.log(isUser);
   useEffect(() => {
     fetch("/upazila.json")
       .then((res) => res.json())

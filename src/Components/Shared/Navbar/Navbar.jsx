@@ -3,8 +3,10 @@ import logo from "../../../assets/PdLogo.png";
 import { Link, NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../../Provider/AuthProvider";
+import useAdmin from "../../../Hooks/useAdmin";
 const Navbar = () => {
   const { logOut, user } = useContext(AuthContext);
+  const [isAdmin] = useAdmin();
   const logoutHandler = () => {
     logOut()
       .then(() => {
@@ -124,18 +126,34 @@ const Navbar = () => {
                 >
                   <li className="font-semibold">Name: {user?.displayName}</li>
                   <li>
-                    <button onClick={logoutHandler} className="btn pt-4">
+                    <button onClick={logoutHandler} className="btn btn-sm">
                       Logout
                     </button>
                   </li>
-                  <li>
-                    <Link
-                      to="/dashboard/profile"
-                      className="pl-7 btn btn-sm mt-2"
-                    >
-                      User Dashboard
-                    </Link>
-                  </li>
+                  {user && isAdmin?.role === "user" && (
+                    <>
+                      <li>
+                        <Link
+                          to="/dashboard/profile"
+                          className="pl-7 btn btn-sm mt-2"
+                        >
+                          User Dashboard
+                        </Link>
+                      </li>
+                    </>
+                  )}
+                  {user && isAdmin?.role === "isAdmin" && (
+                    <>
+                      <li>
+                        <Link
+                          to="/dashboard/allusers"
+                          className="pl-7 btn btn-sm mt-2"
+                        >
+                          Admin Dashboard
+                        </Link>
+                      </li>
+                    </>
+                  )}
                 </ul>
               </div>
             ) : (

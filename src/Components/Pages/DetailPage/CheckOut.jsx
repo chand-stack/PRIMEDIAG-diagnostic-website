@@ -16,7 +16,9 @@ const CheckOut = ({ amount, testDetail, refetch }) => {
       .then((res) => {
         setClientSecret(res.data.clientSecret);
       })
-      .catch((error) => {});
+      .catch((error) => {
+        console.log(error);
+      });
   }, [amount, axios]);
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -32,7 +34,7 @@ const CheckOut = ({ amount, testDetail, refetch }) => {
       card,
     });
     if (error) {
-      // console.log("error", error);
+      console.log("error", error);
     }
     if (paymentMethod) {
       // console.log("paymentMethod", paymentMethod);
@@ -51,7 +53,7 @@ const CheckOut = ({ amount, testDetail, refetch }) => {
       }
     );
     if (isError) {
-      // console.log(isError);
+      console.log(isError);
     } else {
       // console.log(paymentIntent);
       if (paymentIntent.status == "succeeded") {
@@ -63,8 +65,11 @@ const CheckOut = ({ amount, testDetail, refetch }) => {
           transactionId: paymentIntent.id,
           date: testDetail.date,
           status: "pending",
+          image: "not",
         };
+        console.log(reservation);
         const response = await axios.post("/reservation", reservation);
+        console.log(response);
         if (response.data.status === "success") {
           Swal.fire({
             title: "Payment successful! ",

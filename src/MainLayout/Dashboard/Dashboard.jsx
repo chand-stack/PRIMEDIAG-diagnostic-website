@@ -6,8 +6,10 @@ import { GrDocumentTest } from "react-icons/gr";
 import { FaHome } from "react-icons/fa";
 import { IoIosAddCircle } from "react-icons/io";
 import { PiFlagBannerFill } from "react-icons/pi";
+import useAdmin from "../../Hooks/useAdmin";
 const Dashboard = () => {
-  const isAdmin = true;
+  const [isAdmin] = useAdmin();
+  // console.log(isAdmin);
   return (
     <div className="flex font-poppin mx-auto">
       <div className="lg:w-1/4 min-h-screen bg-slate-50">
@@ -17,7 +19,7 @@ const Dashboard = () => {
         </div>
         <div className="hidden lg:contents">
           <ul className="menu-vertical space-y-4 p-4">
-            {isAdmin ? (
+            {isAdmin?.status === "active" && isAdmin?.role === "isAdmin" ? (
               <>
                 {/* admin routes */}
 

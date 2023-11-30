@@ -19,6 +19,7 @@ import UpdateTest from "../Components/Pages/AdminDashboard/UpdateTest/UpdateTest
 import Blog from "../Components/Pages/Blog/Blog";
 import Contact from "../Components/Pages/Contact/Contact";
 import AboutUs from "../Components/Pages/AboutUs/AboutUs";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 const routes = createBrowserRouter([
   {
@@ -44,7 +45,11 @@ const routes = createBrowserRouter([
       },
       {
         path: "/test/detail/:id",
-        element: <Detail></Detail>,
+        element: (
+          <PrivateRoute>
+            <Detail></Detail>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/blog",
@@ -66,15 +71,27 @@ const routes = createBrowserRouter([
     children: [
       {
         path: "profile",
-        element: <UserProfile></UserProfile>,
+        element: (
+          <PrivateRoute>
+            <UserProfile></UserProfile>
+          </PrivateRoute>
+        ),
       },
       {
         path: "appointments",
-        element: <Appointment></Appointment>,
+        element: (
+          <PrivateRoute>
+            <Appointment></Appointment>
+          </PrivateRoute>
+        ),
       },
       {
         path: "testresults",
-        element: <TestResult></TestResult>,
+        element: (
+          <PrivateRoute>
+            <TestResult></TestResult>
+          </PrivateRoute>
+        ),
       },
       {
         path: "allusers",
