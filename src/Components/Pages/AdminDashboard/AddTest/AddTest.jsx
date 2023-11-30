@@ -27,6 +27,7 @@ const AddTest = () => {
       slot: slot,
       price: price,
       date: date,
+      booking: 0,
     };
     const res = await axios.post("/service", testDetail);
     if (res.data.status == "success") {

@@ -73,6 +73,7 @@ const CheckOut = ({ amount, testDetail, refetch }) => {
           });
           const res = await axios.patch(`/service/${testDetail?._id}`, {
             slot: testDetail.slot - 1,
+            booking: testDetail.booking + 1,
           });
           if (res.data.status === "success") {
             refetch();
