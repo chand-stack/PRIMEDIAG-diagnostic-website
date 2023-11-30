@@ -6,6 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 import usePublicAxios from "../../../../useAxios/usePublicAxios";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const AddTest = () => {
   const axios = usePublicAxios();
@@ -41,6 +42,9 @@ const AddTest = () => {
   };
   return (
     <div className="font-poppin">
+      <Helmet>
+        <title>PrimeDiag | Add Test</title>
+      </Helmet>
       <DashboardTitle title={"Add A Test"}></DashboardTitle>
       <div>
         <div className=" px-5 ">

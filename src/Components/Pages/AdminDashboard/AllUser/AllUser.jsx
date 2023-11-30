@@ -3,6 +3,7 @@ import usePublicAxios from "../../../../useAxios/usePublicAxios";
 import DashboardTitle from "../../../Shared/DashboardTitle/DashboardTitle";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const AllUser = () => {
   const [showDetail, setShowDetail] = useState({});
@@ -64,6 +65,9 @@ const AllUser = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>PrimeDiag | All Users</title>
+      </Helmet>
       <DashboardTitle title={"All Users"}></DashboardTitle>
       <div>
         <form onSubmit={searchHandler} className="text-center my-3">

@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import useAppointm from "../../../../Hooks/useAppointm";
 import DashboardTitle from "../../../Shared/DashboardTitle/DashboardTitle";
 import download from "downloadjs";
@@ -18,6 +19,9 @@ const TestResult = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>PrimeDiag | Test Result</title>
+      </Helmet>
       <DashboardTitle title={"Test Results"}></DashboardTitle>
       <div>
         <div className="overflow-x-auto">

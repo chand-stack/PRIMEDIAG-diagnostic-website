@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import DashboardTitle from "../../../Shared/DashboardTitle/DashboardTitle";
 import usePublicAxios from "../../../../useAxios/usePublicAxios";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const apiKey = import.meta.env.VITE_IMGBB_API_KEY;
 const hostingApi = `https://api.imgbb.com/1/upload?key=${apiKey}`;
@@ -45,6 +46,9 @@ const AddBanner = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>PrimeDiag | Add Banner</title>
+      </Helmet>
       <DashboardTitle title={"Add Banner"}></DashboardTitle>
       <div>
         <div className=" px-5 ">

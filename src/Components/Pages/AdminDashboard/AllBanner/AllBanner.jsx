@@ -4,6 +4,7 @@ import DashboardTitle from "../../../Shared/DashboardTitle/DashboardTitle";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import useBanner from "../../../../Hooks/useBanner";
+import { Helmet } from "react-helmet-async";
 
 const AllBanner = () => {
   const axios = usePublicAxios();
@@ -72,6 +73,9 @@ const AllBanner = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>PrimeDiag | All Banner</title>
+      </Helmet>
       <DashboardTitle title={"All Banner"}></DashboardTitle>
       <div>
         <div className="overflow-x-auto">

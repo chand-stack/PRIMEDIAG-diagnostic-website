@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import Swal from "sweetalert2";
 import usePublicAxios from "../../../useAxios/usePublicAxios";
+import { Helmet } from "react-helmet-async";
 
 const apiKey = import.meta.env.VITE_IMGBB_API_KEY;
 const hostingApi = `https://api.imgbb.com/1/upload?key=${apiKey}`;
@@ -131,6 +132,9 @@ const Register = () => {
 
   return (
     <div className="bg-gray-50 w-full">
+      <Helmet>
+        <title>PrimeDiag | SignUp</title>
+      </Helmet>
       <div className="container mx-auto pt-10 grid grid-cols-1 md:grid-cols-2 font-poppin bg-gray-50">
         <div className=" px-5">
           <div className="max-w-md mx-auto space-y-4">

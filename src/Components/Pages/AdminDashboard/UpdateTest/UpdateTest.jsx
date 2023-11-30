@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import DatePicker from "react-datepicker";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet-async";
 
 const UpdateTest = () => {
   const axios = usePublicAxios();
@@ -51,6 +52,9 @@ const UpdateTest = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>PrimeDiag | Update Test</title>
+      </Helmet>
       <DashboardTitle title={"Update Test Info"}></DashboardTitle>
       <div>
         <div className=" px-5 ">

@@ -2,6 +2,7 @@ import Swal from "sweetalert2";
 import useAppointm from "../../../../Hooks/useAppointm";
 import usePublicAxios from "../../../../useAxios/usePublicAxios";
 import DashboardTitle from "../../../Shared/DashboardTitle/DashboardTitle";
+import { Helmet } from "react-helmet-async";
 
 const Appointment = () => {
   const axios = usePublicAxios();
@@ -23,6 +24,9 @@ const Appointment = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>PrimeDiag | Appointment</title>
+      </Helmet>
       <DashboardTitle title={"Upcoming Appointments"}></DashboardTitle>
       <div>
         <div className="overflow-x-auto">

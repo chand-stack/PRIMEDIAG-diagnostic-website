@@ -5,6 +5,7 @@ import { Link, useLoaderData } from "react-router-dom";
 import NewsLetter from "../../Shared/NewsLetter/NewsLetter";
 import Faq from "../../Shared/Faq/Faq";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 const AllTestPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -37,6 +38,9 @@ const AllTestPage = () => {
 
   return (
     <div className="font-poppin bg-gray-100">
+      <Helmet>
+        <title>PrimeDiag | All Tests</title>
+      </Helmet>
       <div
         className="h-52 md:h-96"
         style={{

@@ -6,6 +6,7 @@ import { CiPhone } from "react-icons/ci";
 import GoogleMapReact from "google-map-react";
 import NewsLetter from "../../Shared/NewsLetter/NewsLetter";
 import Brands from "../../Shared/Brands/Brands";
+import { Helmet } from "react-helmet-async";
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 const Contact = () => {
   const defaultProps = {
@@ -17,6 +18,9 @@ const Contact = () => {
   };
   return (
     <div className="font-poppin">
+      <Helmet>
+        <title>PrimeDiag | Contact</title>
+      </Helmet>
       <div
         className="h-52 md:h-96"
         style={{

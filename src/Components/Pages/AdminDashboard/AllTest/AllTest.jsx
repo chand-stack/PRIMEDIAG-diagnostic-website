@@ -4,6 +4,7 @@ import DashboardTitle from "../../../Shared/DashboardTitle/DashboardTitle";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import useSecureAxios from "../../../../useAxios/useSecureAxios";
+import { Helmet } from "react-helmet-async";
 
 const AllTest = () => {
   const axios = usePublicAxios();
@@ -43,6 +44,9 @@ const AllTest = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>PrimeDiag | All Test</title>
+      </Helmet>
       <DashboardTitle title={"All Tests"}></DashboardTitle>
       <div>
         <div className="overflow-x-auto">

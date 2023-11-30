@@ -5,6 +5,7 @@ import { useState } from "react";
 import logo from "../../../../assets/PdLogo.png";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 const apiKey = import.meta.env.VITE_IMGBB_API_KEY;
 const hostingApi = `https://api.imgbb.com/1/upload?key=${apiKey}`;
 const Reservation = () => {
@@ -66,6 +67,9 @@ const Reservation = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>PrimeDiag | Reservation</title>
+      </Helmet>
       <DashboardTitle title={"Reservation"}></DashboardTitle>
       <form onSubmit={searchHandler} className="text-center my-3">
         <div className="join">

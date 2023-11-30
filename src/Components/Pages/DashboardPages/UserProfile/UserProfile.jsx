@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import usePublicAxios from "../../../../useAxios/usePublicAxios";
+import { Helmet } from "react-helmet-async";
 
 const UserProfile = () => {
   const [upazila, setUpazila] = useState([]);
@@ -66,6 +67,9 @@ const UserProfile = () => {
   };
   return (
     <div className="font-poppin">
+      <Helmet>
+        <title>PrimeDiag | Profile</title>
+      </Helmet>
       <div
         className=""
         style={{

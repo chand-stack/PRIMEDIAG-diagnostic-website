@@ -13,9 +13,13 @@ import { FaRegComment } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
 import { FaFacebookF, FaLinkedinIn } from "react-icons/fa6";
 import { FaTwitter, FaYoutube } from "react-icons/fa";
+import { Helmet } from "react-helmet-async";
 const Blog = () => {
   return (
     <div className="font-poppin">
+      <Helmet>
+        <title>PrimeDiag | Blog</title>
+      </Helmet>
       <div
         className="h-52 md:h-96"
         style={{

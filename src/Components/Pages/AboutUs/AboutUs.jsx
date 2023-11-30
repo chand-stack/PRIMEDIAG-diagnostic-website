@@ -8,6 +8,7 @@ import NewsLetter from "../../Shared/NewsLetter/NewsLetter";
 import usePublicAxios from "../../../useAxios/usePublicAxios";
 import { useQuery } from "@tanstack/react-query";
 import Brands from "../../Shared/Brands/Brands";
+import { Helmet } from "react-helmet-async";
 const AboutUs = () => {
   const publicAxios = usePublicAxios();
   const { data: reviews } = useQuery({
@@ -19,6 +20,9 @@ const AboutUs = () => {
   });
   return (
     <div className="font-poppin">
+      <Helmet>
+        <title>PrimeDiag | About</title>
+      </Helmet>
       <div
         className="h-52 md:h-96"
         style={{
