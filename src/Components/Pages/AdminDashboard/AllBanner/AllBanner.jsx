@@ -36,7 +36,7 @@ const AllBanner = () => {
   const changeBannerHandler = async (id) => {
     const unselectedBanner = banner?.data?.filter((item) => item._id !== id);
     const unselectedIds = {
-      Ids: unselectedBanner.map((item) => item._id),
+      Ids: unselectedBanner?.map((item) => item._id),
     };
     const updatedDoc = {
       isActive: true,
